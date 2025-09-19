@@ -30,14 +30,20 @@ asdf plugin add bash-profile-switcher
 asdf plugin add bash-profile-switcher https://github.com/mrjk/asdf-bash-profile-switcher.git
 ```
 
+Via mise:
+```
+mise plugins install bash-profile-switcher https://github.com/mrjk/asdf-bash-profile-switcher.git
+```
+
 bash-profile-switcher:
 
 ```shell
 # Show all installable versions
-asdf list-all bash-profile-switcher
+asdf list all bash-profile-switcher
 
 # Install specific version
 asdf install bash-profile-switcher latest
+asdf uninstall bash-profile-switcher latest
 
 # Set a version globally (on your ~/.tool-versions file)
 asdf global bash-profile-switcher latest
