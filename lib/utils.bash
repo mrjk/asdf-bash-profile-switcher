@@ -51,7 +51,7 @@ download_release() {
 install_version() {
 	local install_type="$1"
 	local version="$2"
-	local install_path="${3%/bin}/bin"
+	local install_path="${3%/lib}/lib"
 
 	if [ "$install_type" != "version" ]; then
 		fail "asdf-$TOOL_NAME supports release installs only"
@@ -59,14 +59,15 @@ install_version() {
 
 	(
 		mkdir -p "$install_path"
+    chmod +x "$ASDF_DOWNLOAD_PATH"/bash_profile_switcher.sh
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 
 		# TODO: Assert bash-profile-switcher executable exists.
 		local tool_cmd
 		tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
-		test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."
+		test -f "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be present."
 
-		echo "$TOOL_NAME $version installation was successful!"
+		echo "$TOOL_NAME $version installation was successful in $install_path !"
 	) || (
 		rm -rf "$install_path"
 		fail "An error occurred while installing $TOOL_NAME $version."
